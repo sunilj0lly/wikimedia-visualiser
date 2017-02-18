@@ -59,8 +59,10 @@ class Store {
       this.data.users.push(wikiUser);
     }
     wikiUser.numberOfContributions += 1;
+    const uri = payload.meta.uri;
     this.data.uris.push({
-      uri: payload.uri,
+      uri,
+      uriShort: uri.slice(uri.lastIndexOf('/') + 1),
       user: payload.user,
     });
   }
