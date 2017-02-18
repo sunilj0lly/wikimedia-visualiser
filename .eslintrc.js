@@ -19,5 +19,6 @@ module.exports = {
       "angular": false,
       "document": false,
       "window": false,
+      "EventSource": false,
     }
 };
