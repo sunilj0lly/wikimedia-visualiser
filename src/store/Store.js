@@ -34,20 +34,35 @@ class Store {
         this.data.isStreaming = false;
         return this.data;
 
-      case Actions.NEW_WIKIMEDIA_EVENT:
-        if (!this.data.events) {
-          this.data.events = [];
-        }
-        this.data.events.push({
-          bot: payload.bot,
-          user: payload.user,
-          uri: payload.meta.uri,
-        });
+      case Actions.NEW_WIKIMEDIA_EVENT: // eslint-disable-line no-case-declarations
+        this._handleNewWikimediaEvent(payload);
         return this.data;
 
       default:
         return this.data;
     }
+  }
+
+  _handleNewWikimediaEvent(payload) {
+    if (!this.data.users) {
+      this.data.users = [];
+    }
+    if (!this.data.uris) {
+      this.data.uris = [];
+    }
+    let wikiUser = _.find(this.data.users, user => user.name === payload.user);
+    if (!wikiUser) {
+      wikiUser = {
+        name: payload.user,
+        numberOfContributions: 0,
+      };
+      this.data.users.push(wikiUser);
+    }
+    wikiUser.numberOfContributions += 1;
+    this.data.uris.push({
+      uri: payload.uri,
+      user: payload.user,
+    });
   }
 
 }

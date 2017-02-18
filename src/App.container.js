@@ -37,8 +37,9 @@ const AppConfig = {
       <a href='#' ng-if="!$ctrl.data.isStreaming" ng-click="$ctrl.onStartStreamClick($event)">Start Stream</a>
       <a href='#' ng-if="$ctrl.data.isStreaming" ng-click="$ctrl.onStopStreamClick($event)">Stop Stream</a>
       <section>
-        <div ng-repeat="event in $ctrl.data.events">
-          {{event.user}} - {{event.bot}} - {{event.uri}}
+        <div ng-repeat="user in $ctrl.data.users | orderBy: '-numberOfContributions'">
+          {{user.name}} - {{user.numberOfContributions}}
+            contribution<span ng-if="user.numberOfContributions > 1">s</span>
         </div>
     </section>
   `,
