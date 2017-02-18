@@ -5,7 +5,8 @@ module.exports = {
     ],
     "rules": {
       "no-multi-assign": "off",
-      "class-methods-use-this": "warn"
+      "class-methods-use-this": "warn",
+      "no-underscore-dangle": "off",
     },
     "globals": {
       "describe": false,

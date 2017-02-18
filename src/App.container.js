@@ -1,9 +1,20 @@
+import Store from './store/Store';
+import WikimediaEventStream from './store/WikimediaEventStream';
+import { START_STREAM } from './store/Actions';
+
 class App {
 
-  constructor() {}
+  constructor() {
+    this.store = new Store(WikimediaEventStream);
+  }
 
   $onInit() {
-    console.log('app init');
+    this.store.connect(this.onStoreUpdate);
+    this.store.action(START_STREAM);
+  }
+
+  onStoreUpdate(data) {
+    console.log(data);
   }
 
 }
