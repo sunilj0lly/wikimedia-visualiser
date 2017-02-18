@@ -1,2 +1,3 @@
 export const START_STREAM = 'START_STREAM';
+export const STOP_STREAM = 'STOP_STREAM';
 export const NEW_WIKIMEDIA_EVENT = 'NEW_WIKIMEDIA_EVENT';

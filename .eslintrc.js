@@ -20,5 +20,7 @@ module.exports = {
       "document": false,
       "window": false,
       "EventSource": false,
+      "postMessage": false,
+      "Worker": false,
     }
 };

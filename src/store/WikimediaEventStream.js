@@ -1,11 +1,10 @@
 import * as Actions from './Actions';
 
-const WIKIMEDIA_STREAM_URL = 'https://stream.wikimedia.org/v2/stream/recentchange';
-
 class WikimediaEventStream {
 
   constructor(callback) {
     this.callback = callback;
+    this.worker = null;
   }
 
   action(type) {
@@ -17,18 +16,18 @@ class WikimediaEventStream {
   }
 
   _listenForEvents() {
-    if (this.events) {
+    if (this.worker) {
       throw new Error('Already listening for events');
     }
-    this.eventSource = new EventSource(WIKIMEDIA_STREAM_URL);
-    this.eventSource.onmessage = (e) => {
-      const data = JSON.parse(e.data);
-      this.callback(Actions.NEW_WIKIMEDIA_EVENT, data);
+    this.worker = new Worker('WikimediaWorker.js');
+    this.worker.onmessage = (event) => {
+      this.callback(Actions.NEW_WIKIMEDIA_EVENT, event.data);
     };
   }
 
   _stopListeningForEvents() {
-    this.eventSource.close();
+    this.worker.terminate();
+    this.worker = null;
   }
 
 }
