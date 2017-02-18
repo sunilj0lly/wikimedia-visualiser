@@ -1,0 +1,4 @@
+static/*-bundle.js
+static/*.map
+node_modules
+npm-debug.log
