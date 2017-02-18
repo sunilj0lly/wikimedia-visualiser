@@ -4,25 +4,26 @@ import * as Actions from './store/Actions';
 
 class App {
 
-  constructor() {
+  constructor($timeout) {
+    this.$timeout = $timeout;
     this.store = new Store(WikimediaEventStream);
   }
 
   $onInit() {
-    this.store.connect(this.onStoreUpdate);
+    this.store.connect(this.onStoreUpdate.bind(this));
   }
 
   onStoreUpdate(data) {
-    console.log(data);
+    this.$timeout(() => {
+      this.data = data;
+    });
   }
 
   onStartStreamClick() {
-    console.log('onclick');
     this.store.action(Actions.START_STREAM);
   }
 
   onStopStreamClick() {
-    console.log('onclick');
     this.store.action(Actions.STOP_STREAM);
   }
 
@@ -33,8 +34,12 @@ const AppConfig = {
   template: `
     <section>
       <h1>Wikimedia Visualiser</h1>
-      <a href='#' ng-click="$ctrl.onStartStreamClick($event)">Start Stream</a>
-      <a href='#' ng-click="$ctrl.onStopStreamClick($event)">Stop Stream</a>
+      <a href='#' ng-if="!$ctrl.data.isStreaming" ng-click="$ctrl.onStartStreamClick($event)">Start Stream</a>
+      <a href='#' ng-if="$ctrl.data.isStreaming" ng-click="$ctrl.onStopStreamClick($event)">Stop Stream</a>
+      <section>
+        <div ng-repeat="event in $ctrl.data.events">
+          {{event.user}} - {{event.bot}} - {{event.uri}}
+        </div>
     </section>
   `,
   bindings: {},

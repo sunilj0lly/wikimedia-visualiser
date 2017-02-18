@@ -23,7 +23,7 @@ class WikimediaEventStream {
     this.eventSource = new EventSource(WIKIMEDIA_STREAM_URL);
     this.eventSource.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      console.log(data);
+      this.callback(Actions.NEW_WIKIMEDIA_EVENT, data);
     };
   }
 
