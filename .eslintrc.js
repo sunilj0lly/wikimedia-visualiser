@@ -7,6 +7,7 @@ module.exports = {
       "no-multi-assign": "off",
       "class-methods-use-this": "warn",
       "no-underscore-dangle": "off",
+      "no-param-reassign": "off",
     },
     "globals": {
       "describe": false,

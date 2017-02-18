@@ -2,12 +2,13 @@ import _ from 'lodash';
 import Store from './store/Store';
 import WikimediaEventStream from './store/WikimediaEventStream';
 import * as Actions from './store/Actions';
+import actionHandler from './store/ActionHandler';
 
 class App {
 
   constructor($timeout) {
     this.$timeout = $timeout;
-    this.store = new Store(WikimediaEventStream);
+    this.store = new Store(WikimediaEventStream, actionHandler);
   }
 
   $onInit() {
