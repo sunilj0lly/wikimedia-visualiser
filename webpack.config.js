@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     app: './src/app.js',
-    // test: './test/tests.js'
+    test: './test/ActionHandler.spec.js'
   },
   output: {
     path: path.join(__dirname, "static"),

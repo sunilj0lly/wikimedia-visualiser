@@ -1,7 +1,8 @@
+// kludge: Should have error handling where dependencies don't exist
 class Store {
 
   constructor(Middleware, actionHandler) {
-    // kludge: should accept array of middlewares
+    // kludge: Should accept array of middlewares
     this.middleware = new Middleware(this.action.bind(this));
     this.actionHandler = actionHandler;
     this.data = {
@@ -10,7 +11,7 @@ class Store {
   }
 
   connect(callback) {
-    // kludge: shold accept array of callbacks
+    // kludge: Should accept array of callbacks
     this.callback = callback;
     this.callback(this.actionHandler(this.data));
   }
