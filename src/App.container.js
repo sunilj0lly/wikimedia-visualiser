@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Store from './lib/Store';
+import Store from './store';
 import WikimediaEventStream from './store/WikimediaEventStream';
 import * as Actions from './store/Actions';
 import actionHandler from './store/ActionHandler';
